@@ -1,0 +1,8 @@
+Facture de réservation
+
+Nom du client: tsoa
+Téléphone: 54654654
+Email: dsfqd@f.p
+Date de réservation: 2025-02-02
+Nom de l'agence: Vanilla Island Travel
+Service réservé: Route de la Vanille

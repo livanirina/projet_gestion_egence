@@ -1,0 +1,6 @@
+Facture de réservation
+
+Nom: bolo
+Téléphone: 54654654
+Email: bolorack@gmail.com
+Date de réservation: 2025-02-02
