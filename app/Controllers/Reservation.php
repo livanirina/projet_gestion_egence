@@ -5,8 +5,6 @@ namespace App\Controllers;
 use App\Models\ReservationModel;
 use App\Models\ServiceModel;
 use App\Models\AgencyModel;
-use Dompdf\Dompdf;
-use Dompdf\Options;
 
 class Reservation extends BaseController
 {
@@ -31,36 +29,31 @@ class Reservation extends BaseController
         $service = $serviceModel->find($data['service_id']);
         $agency = $agencyModel->find($service['agency_id']);
 
-        // Générer le contenu de la facture
-        $invoice = "
-            <h2 style='text-align: center;'>Facture de Réservation</h2>
-            <p><strong>Nom du client :</strong> {$data['client_name']}</p>
-            <p><strong>Téléphone :</strong> {$data['client_phone']}</p>
-            <p><strong>Email :</strong> {$data['client_email']}</p>
-            <p><strong>Date de réservation :</strong> {$data['reservation_date']}</p>
-            <p><strong>Agence :</strong> {$agency['name']}</p>
-            <p><strong>Service réservé :</strong> {$service['name']}</p>
-        ";
+        // Générer la facture
+        $invoice = "Facture de réservation\n\n";
+        $invoice .= "Nom du client: " . $data['client_name'] . "\n";
+        $invoice .= "Téléphone: " . $data['client_phone'] . "\n";
+        $invoice .= "Email: " . $data['client_email'] . "\n";
+        $invoice .= "Date de réservation: " . $data['reservation_date'] . "\n";
+        $invoice .= "Nom de l'agence: " . $agency['name'] . "\n";
+        $invoice .= "Service réservé: " . $service['name'] . "\n";
 
-        // Générer le PDF
-        $dompdf = new Dompdf();
-        $dompdf->loadHtml($invoice);
+        // Créer un nom unique pour la facture
+        $invoiceFileName = uniqid() . '.txt';
 
-        // Options du PDF
-        $dompdf->setPaper('A4', 'portrait');
-        $dompdf->render();
+        // Vérifier si le dossier existe
+        if (!is_dir(WRITEPATH . 'invoices')) {
+            mkdir(WRITEPATH . 'invoices', 0777, true); // Créer le dossier si nécessaire
+        }
 
-        // Chemin du fichier PDF
-        $pdfFileName = uniqid() . '.pdf';
-        $pdfFilePath = WRITEPATH . 'invoices/' . $pdfFileName;
+        // Enregistrer la facture dans un fichier .txt
+        $invoicePath = WRITEPATH . 'invoices/' . $invoiceFileName;
+        file_put_contents($invoicePath, $invoice);
 
-        // Sauvegarder le PDF sur le serveur
-        file_put_contents($pdfFilePath, $dompdf->output());
-
-        // Passer le contenu de la facture et le chemin du PDF à la vue
+        // Passer la facture et le chemin à la vue
         return view('reservation/success', [
-            'invoice' => $invoice, // Facture à afficher à l'écran
-            'pdfPath' => base_url('writable/invoices/' . $pdfFileName) // Lien pour le téléchargement
+            'invoice' => nl2br($invoice), // Facture à afficher à l'écran
+            'invoicePath' => base_url('writable/invoices/' . $invoiceFileName) // Lien pour le téléchargement
         ]);
     }
 }

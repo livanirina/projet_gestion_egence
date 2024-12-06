@@ -1,0 +1,8 @@
+Facture de réservation
+
+Nom du client: bolo
+Téléphone: 54654654
+Email: livanirina586@gmail.com
+Date de réservation: 2025-05-12
+Nom de l'agence: Nosy Be Voyages
+Service réservé: Plages paradisiaques de Nosy Be

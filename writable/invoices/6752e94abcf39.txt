@@ -1,0 +1,8 @@
+Facture de réservation
+
+Nom du client: bolo
+Téléphone: 54654654
+Email: dsfqd@f.p
+Date de réservation: 2025-02-12
+Nom de l'agence: Nosy Be Voyages
+Service réservé: bolo

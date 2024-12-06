@@ -12,6 +12,8 @@ $routes->get('/', 'Home::index');
 $routes->get('home/agency/(:num)', 'Home::agency/$1');
 $routes->post('reservation/create', 'Reservation::create');
 $routes->get('reservation/create', 'Reservation::create');
+$routes->get('reservation/success', 'Reservation::create');
+
 $routes->get('invoices/(:any)', function ($filename) {
     $path = WRITEPATH . 'invoices/' . $filename;
 
@@ -34,8 +36,5 @@ $routes->get('espaceAdmin/deleteAgency/(:num)', 'Admin::deleteAgency/$1');
 $routes->post('espaceAdmin/addService', 'Admin::addService');
 $routes->post('espaceAdmin/editService/(:num)', 'Admin::editService/$1');
 $routes->get('espaceAdmin/deleteService/(:num)', 'Admin::deleteService/$1');
-
-
-
 
 
